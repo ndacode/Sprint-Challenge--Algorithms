@@ -97,16 +97,28 @@ class SortingRobot:
         Sort the robot's list.
         """
 
-# everything starts at 0 and off in the beginning of the array
-# set can_move_right to true
-# pick up the first item, compare it to the second item, if the first item is smaller, leave it, if the first item is bigger, turn the light on and swap it with the second
-# turn the light off
-# whether bigger or smaller, move to the right, repeat the comparison with the next item until you're at len(array)-1
-# when you're at len(array)-1 set can_move_right to false and set can_move_left to true
-# pick up the len(array)-1 item, move to the left, if the item in hand is larger, leave it, if the item in hand is smaller, swap them
-# when you're at len(array[0]), set can_move_left to false
-# set can_move_right to true
-# repeat the whole process again until there have been 0 swaps
+        while self.light_is_on() == False:
+            self.set_light_on()
+            while self.can_move_right():
+                self.swap_item()
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    self.set_light_off()
+                self.move_left()
+                self.swap_item()
+                self.move_right()
+            while self.can_move_left():
+                self.swap_item()
+                self.move_left()
+                if self.compare_item() == -1:
+                    self.swap_item()
+                    self.set_light_off()
+                self.move_right()
+                self.swap_item()
+                self.move_left()
+
+
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
